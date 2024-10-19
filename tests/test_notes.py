@@ -3,6 +3,7 @@ import json
 import pytest
 
 from api import crud
+from api.models import NoteDB
 
 
 def test_create_note(test_app, monkeypatch):
@@ -140,3 +141,31 @@ def test_remove_note_incorrect_id(test_app, monkeypatch):
 
     response = test_app.delete("/notes/0/")
     assert response.status_code == 422
+
+
+def test_create_note_sync(test_app, monkeypatch):
+    test_request_payload = {"title": "something", "description": "something else"}
+    test_response_payload = {"id": 1, "title": "something", "description": "something else"}
+
+    def mock_post_sync(db_session, payload):
+        return NoteDB(id=1, title=test_request_payload["title"], description=test_request_payload["description"])
+
+    monkeypatch.setattr(crud, "post_sync", mock_post_sync)
+
+    response = test_app.post("/notes/sync/", content=json.dumps(test_request_payload))
+
+    assert response.status_code == 201
+    assert response.json() == test_response_payload
+
+
+def test_read_note_sync(test_app, monkeypatch):
+    test_data = {"id": 1, "title": "something", "description": "something else"}
+
+    def mock_get_sync(db_session, id):
+        return test_data
+
+    monkeypatch.setattr(crud, "get_sync", mock_get_sync)
+
+    response = test_app.get("/notes/sync/1")
+    assert response.status_code == 200
+    assert response.json() == test_data

@@ -1,7 +1,7 @@
 from api.models import NoteSchema
 from db import notes, database
 from sqlalchemy.orm import Session
-from api.models import NoteDB, Note
+from api.models import Note
 
 
 async def post(payload: NoteSchema):

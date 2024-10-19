@@ -1,9 +1,15 @@
 {
-	"name": "FastApi Async",
+	"name": "App",
 	"dockerComposeFile": [
 		"../docker-compose.yml"
 	],
 	"service": "web",
-	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}"
-
+	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ckolkman.vscode-postgres"
+			]
+		}
+	}
 }

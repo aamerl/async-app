@@ -82,6 +82,5 @@ def read_note_sync(
 
 @router.post("/sync/", response_model=NoteDB, status_code=201)
 def create_note_sync(*, db: Session = Depends(get_db), payload: NoteSchema):
-    print(payload)
     note = crud.post_sync(db_session=db, payload=payload)
     return note

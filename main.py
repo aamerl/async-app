@@ -7,15 +7,12 @@ from db import engine, database, metadata
 
 metadata.create_all(engine)
 
-app = FastAPI()
 
-
-@app.on_event("startup")
-async def startup():
+@asynccontextmanager
+async def lifespan(app: FastAPI):
     await database.connect()
-
-@app.on_event("shutdown")
-async def shutdown():
+    yield
     await database.disconnect()
 
+app = FastAPI(lifespan=lifespan)
 app.include_router(notes.router, prefix="/notes", tags=["notes"])
