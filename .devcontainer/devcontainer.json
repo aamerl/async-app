@@ -1,0 +1,9 @@
+{
+	"name": "FastApi Async",
+	"dockerComposeFile": [
+		"../docker-compose.yml"
+	],
+	"service": "web",
+	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}"
+
+}
