@@ -4,7 +4,7 @@
 		"../docker-compose.yml"
 	],
 	"service": "web",
-	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+	"workspaceFolder": "/usr/src/app/",
 	"customizations": {
 		"vscode": {
 			"extensions": [
